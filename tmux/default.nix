@@ -6,7 +6,7 @@ in {
 
 		# Enables mouse support
 		mouse = true; 
-
-		keyMode = 'vi';
+		
+		keyMode = "vi";
 	};
 }

@@ -6,7 +6,8 @@
 
 		home-manager  = {
 			url = "github:nix-community/home-manager/release-23.11";
-			inputs.nixpkgs.follows = "nixpkgs"; # <- WTF does this mean...?
+			inputs.nixpkgs.follows = "nixpkgs"; # Stating *.follows = 'nixpkgs'; indicates that
+			# the home-manager input is DEPENDENT on nixpkgs. I.e, an import DAG creation.
 		};
 	};
 
@@ -19,7 +20,13 @@
 			homeConfigurations = {
 				kasada = home-manager.lib.homeManagerConfiguration {
 					inherit pkgs;
-					modules = [ ./home.nix ];
+					modules = [ 
+						./home.nix 
+						./bash/default.nix 
+						./fish/default.nix
+						./tmux/default.nix
+						./starship/default.nix
+					];
 				};
 			};
 		};

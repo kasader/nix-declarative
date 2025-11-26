@@ -1,4 +1,6 @@
-{
+{ lib, ... }: let
+	xxx = "";
+in {
 	programs.fish = {
 		enable = true;
 
@@ -6,19 +8,20 @@
 		shellInit = 
 			''
 				set -U fish_greeting ""
+				starship init fish | source
 			'';
 
 		shellAliases = {
-			c = "clear"
+			c = "clear";
 			# TODO: add more shell aliases (borrow from older conifgs, at some point).
 			# ...
-		}
+		};
 
 		shellAbbrs = {
 			g = "git";
 			gnm = "git commit -n -m";
 			# TODO: add more abbreviations here. 
 			# (See: https://github.com/donovanglover/nix-config/blob/master/home/fish.nix)
-		}
-	}
+		};
+	};
 }
