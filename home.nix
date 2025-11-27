@@ -6,6 +6,7 @@ in {
 			cowsay
 			lolcat
 			bat
+			delta
 		];
 
 		file = {

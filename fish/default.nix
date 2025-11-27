@@ -23,5 +23,17 @@ in {
 			# TODO: add more abbreviations here. 
 			# (See: https://github.com/donovanglover/nix-config/blob/master/home/fish.nix)
 		};
+
+		functions = {
+			y = # fish
+				''
+				set tmp (mktemp -t "yazi-cwd.XXXXXX")
+				yazi $argv --cwd-file="$tmp"
+				if read -z cwd < "$tmp"; and [ -n "$cwd" ]; and [ "cwd" != "$pwd" ]
+					builtin cd -- "$cwd"
+				end
+				rm -f -- "$tmp"
+				'';
+		};
 	};
 }

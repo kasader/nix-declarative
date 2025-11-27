@@ -26,6 +26,8 @@
 						./fish/default.nix
 						./tmux/default.nix
 						./starship/default.nix
+						./yazi/default.nix
+						./git/default.nix
 					];
 				};
 			};
