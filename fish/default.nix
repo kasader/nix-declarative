@@ -9,6 +9,7 @@ in {
 			''
 				set -U fish_greeting ""
 				starship init fish | source
+				pay-respects fish --alias | source
 			'';
 
 		shellAliases = {
@@ -19,7 +20,12 @@ in {
 
 		shellAbbrs = {
 			g = "git";
-			gnm = "git commit -n -m";
+			gc = "git commit -m";
+			gcn = "git commit -n -m";
+			gd = "git diff";
+			gds = "git diff --staged";
+			gs = "git status";
+			
 			# TODO: add more abbreviations here. 
 			# (See: https://github.com/donovanglover/nix-config/blob/master/home/fish.nix)
 		};

@@ -11,7 +11,7 @@
 		};
 	};
 
-	outputs = { nixpkgs, home-manager, ... }:
+	outputs = { self, nixpkgs, home-manager, ... }:
 		let 
 			lib = nixpkgs.lib;
 			system = "aarch64-linux";
@@ -28,6 +28,8 @@
 						./starship/default.nix
 						./yazi/default.nix
 						./git/default.nix
+						./fzf.nix
+						./vim.nix
 					];
 				};
 			};
