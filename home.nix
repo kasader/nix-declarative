@@ -5,7 +5,9 @@ in {
 	home = {
 		packages = with pkgs; [
 			cowsay
-			lolcat
+      lolcat
+      tldr
+      pay-respects
 			bat
 			delta
 			htop
@@ -34,6 +36,6 @@ in {
 		# this configuration is compatible with. It helps to
 		# avoid breakage when a new Home Manage release
 		# introduces backwards incompatible changes.
-		stateVersion = "23.11";
+		stateVersion = "25.11";
 	};
 }

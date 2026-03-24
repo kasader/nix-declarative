@@ -2,10 +2,10 @@
 	description = "My Nix home-manager configuration";
 
 	inputs = {
-		nixpkgs.url = "nixpkgs/nixos-23.11";
+		nixpkgs.url = "nixpkgs/nixos-25.11";
 
 		home-manager  = {
-			url = "github:nix-community/home-manager/release-23.11";
+			url = "github:nix-community/home-manager/release-25.11";
 			inputs.nixpkgs.follows = "nixpkgs"; # Stating *.follows = 'nixpkgs'; indicates that
 			# the home-manager input is DEPENDENT on nixpkgs. I.e, an import DAG creation.
 		};
@@ -14,7 +14,7 @@
 	outputs = { self, nixpkgs, home-manager, ... }:
 		let 
 			lib = nixpkgs.lib;
-			system = "aarch64-linux";
+			system = "x86_64-linux";
 			pkgs = import nixpkgs { inherit system; };
 		in {
 			homeConfigurations = {
