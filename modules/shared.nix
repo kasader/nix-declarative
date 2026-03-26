@@ -1,7 +1,20 @@
 { lib, pkgs, ... }: let
-	username = "kasada";
+	username = "kasada-123";
 in {
 	programs.home-manager.enable = true;
+
+	imports = [
+		./fzf.nix
+		./ripgrep.nix
+		./vim.nix
+		./starship/default.nix
+		./tmux/default.nix
+		./yazi/default.nix
+		./fish/default.nix 
+		./git/default.nix
+		./bash/default.nix
+	];
+
 	home = {
 		packages = with pkgs; [
 			cowsay
@@ -28,7 +41,7 @@ in {
 		};
 
 		inherit username;
-		homeDirectory = "/home/${username}";
+		homeDirectory_test = "/home/${username}";
 
 		# This value determines the Home Manager release that
 		# this configuration is compatible with. It helps to

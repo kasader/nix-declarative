@@ -14,23 +14,27 @@
 	outputs = { self, nixpkgs, home-manager, ... }:
 		let 
 			lib = nixpkgs.lib;
-			system = "aarch64-linux";
-			pkgs = import nixpkgs { inherit system; };
+
+			pkgsLinux = import nixpkgs {
+				system = "x86_64-linux";
+				config.allowUnfree = true;
+      		};
+
+			pkgsDarwin = import nixpkgs {
+				system = "aarch64-darwin";
+				config.allowUnfree = true;
+			};
+
 		in {
 			homeConfigurations = {
-				kasada = home-manager.lib.homeManagerConfiguration {
-					inherit pkgs;
-					modules = [ 
-						./home.nix 
-						./bash/default.nix 
-						./fish/default.nix
-						./tmux/default.nix
-						./starship/default.nix
-						./yazi/default.nix
-						./git/default.nix
-						./fzf.nix
-						./vim.nix
-					];
+				"kasada@ramiel" = home-manager.lib.homeManagerConfiguration {
+					pkgs = pkgsLinux;
+					modules = [ ./hosts/ramiel/home.nix ];
+				};
+
+				"kasada@israfel" = home-manager.lib.homeManagerConfiguration {
+					pkgs = pkgsDarwin;
+					modules = [ ./hosts/israfel/home.nix ];
 				};
 			};
 		};
