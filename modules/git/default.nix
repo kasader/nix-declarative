@@ -1,10 +1,19 @@
 {
-	programs.git = {
-		enable = true;
+  programs = {
 
-		userName = "kasader";
-		userEmail = "casada980@gmail.com";
+    git = {
+	  	enable = true;
+      settings.user = {
+	      name = "kasader";
+	  	  email = "casada980@gmail.com";
+      };
+    };
 
-		delta.enable = true;
+    # TODO: Make sure to move to dedicated file.
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
 	};
 }

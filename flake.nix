@@ -4,6 +4,13 @@
 	inputs = {
 		nixpkgs.url = "nixpkgs/nixos-25.11";
 
+    # https://github.com/NotAShelf/nvf
+    # Neovim configuration framework for Nix
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 		home-manager  = {
 			url = "github:nix-community/home-manager/release-25.11";
 			inputs.nixpkgs.follows = "nixpkgs"; # Stating *.follows = 'nixpkgs'; indicates that
@@ -11,7 +18,7 @@
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, ... }:
+	outputs = { nixpkgs, home-manager, nvf, ... }:
 		let 
 			lib = nixpkgs.lib;
 
@@ -29,12 +36,12 @@
 			homeConfigurations = {
 				"kasada@ramiel" = home-manager.lib.homeManagerConfiguration {
 					pkgs = pkgsLinux;
-					modules = [ ./hosts/ramiel/home.nix ];
+					modules = [ ./hosts/ramiel/home.nix nvf.homeManagerModules.default ./nvf.nix ]; # <- this imports the home-manager module that provides the options
 				};
 
 				"kasada@israfel" = home-manager.lib.homeManagerConfiguration {
 					pkgs = pkgsDarwin;
-					modules = [ ./hosts/israfel/home.nix ];
+					modules = [ ./hosts/israfel/home.nix nvf.homeManagerModules.default ./nvf.nix ];
 				};
 			};
 		};
