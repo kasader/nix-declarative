@@ -26,6 +26,8 @@ in {
 			gd = "git diff";
 			gds = "git diff --staged";
 			gs = "git status";
+            gp = "git push";
+            gpf = "git push --force";
 			
 			# TODO: add more abbreviations here. 
 			# (See: https://github.com/donovanglover/nix-config/blob/master/home/fish.nix)
