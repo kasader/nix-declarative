@@ -20,9 +20,9 @@ in {
 
 		shellAbbrs = {
 			g = "git";
-                        ga = "git add";
-			gc = "git commit -m";
-			gcn = "git commit -n -m";
+            ga = "git add";
+			gcm = "git commit -m";
+			gcnm = "git commit -n -m";
 			gd = "git diff";
 			gds = "git diff --staged";
 			gs = "git status";

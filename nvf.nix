@@ -5,16 +5,18 @@
     enable = true;
     
     settings = {
+      vim.diagnostics.enable = true;
+      vim.diagnostics.config.virtual_lines = true;
+
       vim.viAlias = false;
       vim.vimAlias = true;
 
       vim.options = {
         autoindent = true;
         smartindent = true;
-        cindent = true;
-        shiftwidth = 2;
+        shiftwidth = 4;
         signcolumn = "yes";
-        tabstop = 2;
+        tabstop = 4;
         expandtab = true;
         wrap = false; 
       };
@@ -32,8 +34,13 @@
         treesitter.enable = true;
       };
 
+      # Automatically indents on newline between {}.
+      vim.autopairs.nvim-autopairs.enable = true;
+
       vim.languages.enableLSP = true;
       vim.languages.enableTreesitter = true;
+
+      vim.treesitter.indent.enable = false;
 
       # vim.languages.go.lsp.enable = true;
 
