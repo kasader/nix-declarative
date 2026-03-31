@@ -35,7 +35,7 @@
 		in {
 			homeConfigurations = {
 				"kasada@ramiel" = home-manager.lib.homeManagerConfiguration {
-					pkgs = pkgsLinux;
+				  pkgs = pkgsLinux;
 					modules = [ ./hosts/ramiel/home.nix nvf.homeManagerModules.default ./nvf.nix ]; # <- this imports the home-manager module that provides the options
 				};
 
