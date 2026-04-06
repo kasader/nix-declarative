@@ -11,6 +11,7 @@ in
   programs.home-manager.enable = true;
 
   imports = [
+    ./librewolf.nix
     ./fzf.nix
     ./ripgrep.nix
     ./vim.nix
