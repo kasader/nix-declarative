@@ -19,15 +19,29 @@ in {
 		};
 
 		shellAbbrs = {
+
+			# git family
 			g = "git";
-            ga = "git add";
+      ga = "git add";
 			gcm = "git commit -m";
 			gcnm = "git commit -n -m";
 			gd = "git diff";
 			gds = "git diff --staged";
 			gs = "git status";
-            gp = "git push";
-            gpf = "git push --force";
+      gp = "git push";
+      gpf = "git push --force";
+
+			lg = "lazygit";
+
+			# k8s family
+			k = "kubectl";
+			kctx = "kubectx";
+			kns = "kubens";
+
+			e = "$EDITOR";
+			c = "clear";
+
+			ls = "ls --color";
 			
 			# TODO: add more abbreviations here. 
 			# (See: https://github.com/donovanglover/nix-config/blob/master/home/fish.nix)
