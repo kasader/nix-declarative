@@ -7,7 +7,6 @@
     kustomize
     k9s
     kubectx # provides kubectx + kubens
-    kube-ps1
     stern
     minikube
     kubeconform
