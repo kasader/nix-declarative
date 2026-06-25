@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./orbstack.nix
+  ];
+
   # Spotlight/Launchpad won't index symlinks into /nix/store, so the apps Home
   # Manager links under "Home Manager Apps" never show up in the launcher.
   # Re-create each as a real macOS alias, which does get indexed.

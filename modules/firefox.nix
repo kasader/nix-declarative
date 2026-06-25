@@ -23,6 +23,16 @@
             "https://assets.jisho.org/assets/favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico";
           definedAliases = [ "@j" ];
         };
+        engines."DeepL" = {
+          urls = [ { template = "https://www.deepl.com/translator?share=generic#ja/en-us/{searchTerms}"; } ];
+          iconMapObj."16" = "https://www.deepl.com/favicon.ico";
+          definedAliases = [ "@d" ];
+        };
+        engines."youtube" = {
+          urls = [ { template = "https://www.youtube.com/results?search_query={searchTerms}"; } ];
+          iconMapObj."16" = "https://www.youtube.com/favicon.ico";
+          definedAliases = [ "@y" ];
+        };
       };
     };
   };

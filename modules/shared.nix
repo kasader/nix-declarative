@@ -20,7 +20,7 @@
     ./fish/default.nix
     ./git/default.nix
     ./bash/default.nix
-  ] ++ lib.optionals isDarwin [ ./darwin.nix ];
+  ] ++ lib.optionals isDarwin [ ./darwin ];
 
   home = {
     packages = with pkgs; [
