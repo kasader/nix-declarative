@@ -2,11 +2,9 @@
   config,
   lib,
   pkgs,
+  isDarwin,
   ...
 }:
-let
-  username = "kasada-123";
-in
 {
   programs.home-manager.enable = true;
 
@@ -22,7 +20,7 @@ in
     ./fish/default.nix
     ./git/default.nix
     ./bash/default.nix
-  ];
+  ] ++ lib.optionals isDarwin [ ./darwin.nix ];
 
   home = {
     packages = with pkgs; [
@@ -45,7 +43,7 @@ in
         text = ''
           					#!/usr/bin/env bash
 
-          					echo "Hello, ${username}, @ ${config.home.homeDirectory}!"
+          					echo "Hello, ${config.home.username}, @ ${config.home.homeDirectory}!"
           					echo '*slaps roof* This script can fit so many lines in it'
           				'';
         executable = true;

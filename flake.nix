@@ -36,11 +36,15 @@
 			homeConfigurations = {
 				"kasada@ramiel" = home-manager.lib.homeManagerConfiguration {
 				  pkgs = pkgsLinux;
+					# Platform flag passed via specialArgs so modules can branch `imports`
+					# without reading `pkgs` (which would be an infinite recursion).
+					extraSpecialArgs = { inherit (pkgsLinux.stdenv) isDarwin; };
 					modules = [ ./hosts/ramiel/home.nix nvf.homeManagerModules.default ./nvf.nix ]; # <- this imports the home-manager module that provides the options
 				};
 
 				"kasada@israfel" = home-manager.lib.homeManagerConfiguration {
 					pkgs = pkgsDarwin;
+					extraSpecialArgs = { inherit (pkgsDarwin.stdenv) isDarwin; };
 					modules = [ ./hosts/israfel/home.nix nvf.homeManagerModules.default ./nvf.nix ];
 				};
 			};

@@ -3,6 +3,9 @@
 {
   programs.firefox = {
     enable = true;
+    # Mozilla's official prebuilt binary is the low-risk choice on macOS; the
+    # source build is the cached standard on Linux.
+    package = if pkgs.stdenv.isDarwin then pkgs.firefox-bin else pkgs.firefox;
     policies = {
       SearchEngines = {
         Name = "Jisho.org";

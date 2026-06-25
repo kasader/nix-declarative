@@ -2,7 +2,10 @@
 
 {
   programs.nvf = {
-    enable = true;
+    # Disabled: nvf >= 3a764365 regressed the legacy vim.maps.* options so that
+    # the keymaps module accesses every (undefined) legacy mode and aborts eval.
+    # Re-enable once upstream restores defaults for vim.maps.*.
+    enable = false;
 
     settings = {
       vim.diagnostics.enable = true;
@@ -20,8 +23,6 @@
         expandtab = true;
         wrap = false;
       };
-
-      vim.maps.command = { };
 
       vim.theme.enable = true;
       vim.theme.name = "gruvbox";
