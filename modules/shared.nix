@@ -46,6 +46,7 @@
       wget
       tldr
       curl
+      keepassxc
     ];
 
     file = {
