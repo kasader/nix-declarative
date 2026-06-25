@@ -5,15 +5,24 @@
     enable = true;
     # Mozilla's official prebuilt binary is the low-risk choice on macOS; the
     # source build is the cached standard on Linux.
-    package = if pkgs.stdenv.isDarwin then pkgs.firefox-bin else pkgs.firefox;
-    policies = {
-      SearchEngines = {
-        Name = "Jisho.org";
-        URLTemplate = "https://jisho.org/search/{searchTerms}";
-        Method = "GET | POST";
-        IconURL = "https://assets.jisho.org/assets/favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico";
-        Alias = "j";
-        Description = "Powerful and easy-to-use online Japanese dictionary with words, kanji and example sentences.";
+    package = pkgs.firefox;
+
+    # Search engines live in the profile (search.json.mozlz4), not in policies:
+    # the SearchEngines policy is ESR-only and is ignored by release Firefox.
+    profiles.default = {
+      id = 0;
+      isDefault = true;
+      search = {
+        # Required: Firefox re-links search config on every launch, so Home
+        # Manager won't overwrite it unless forced. Note this means HM now owns
+        # the search config and will drop engines added manually in the UI.
+        force = true;
+        engines."Jisho" = {
+          urls = [ { template = "https://jisho.org/search/{searchTerms}"; } ];
+          iconMapObj."16" =
+            "https://assets.jisho.org/assets/favicon-062c4a0240e1e6d72c38aa524742c2d558ee6234497d91dd6b75a182ea823d65.ico";
+          definedAliases = [ "@j" ];
+        };
       };
     };
   };
