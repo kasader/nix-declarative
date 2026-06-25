@@ -20,18 +20,23 @@
     ./fish/default.nix
     ./git/default.nix
     ./bash/default.nix
-  ] ++ lib.optionals isDarwin [ ./darwin ];
+    ./k8s/default.nix
+  ]
+  ++ lib.optionals isDarwin [ ./darwin ];
 
   home = {
     packages = with pkgs; [
       hugo
       cowsay
       lolcat
+      fastfetch # TODO: Add an alias for neofetch (as it is now deprecated)
       bat
       pay-respects
       delta
       htop
       fortune
+      figlet # funny text guy
+      sl # steam engine
       jq
       nixfmt
       go # just for testing (for now)
