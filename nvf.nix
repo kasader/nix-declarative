@@ -3,7 +3,7 @@
 {
   programs.nvf = {
     enable = true;
-    
+
     settings = {
       vim.diagnostics.enable = true;
       vim.diagnostics.config.virtual_lines = true;
@@ -18,8 +18,10 @@
         signcolumn = "yes";
         tabstop = 4;
         expandtab = true;
-        wrap = false; 
+        wrap = false;
       };
+
+      vim.maps.command = { };
 
       vim.theme.enable = true;
       vim.theme.name = "gruvbox";
@@ -54,8 +56,8 @@
           pattern = [ "*.go" ];
           command = "lua vim.lsp.buf.format()";
         }
-      ]; 
+      ];
     };
 
   };
-} 
+}
