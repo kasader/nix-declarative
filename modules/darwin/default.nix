@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-    ./orbstack.nix
+    # ./orbstack.nix
   ];
 
   # Spotlight/Launchpad won't index symlinks into /nix/store, so the apps Home
