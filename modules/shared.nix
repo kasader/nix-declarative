@@ -32,6 +32,7 @@
       fastfetch # TODO: Add an alias for neofetch (as it is now deprecated)
       bat
       pay-respects
+      lazygit
       delta
       htop
       fortune
