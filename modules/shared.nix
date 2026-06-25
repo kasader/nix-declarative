@@ -17,9 +17,8 @@
     ./starship/default.nix
     ./tmux/default.nix
     ./yazi/default.nix
-    ./fish/default.nix
+    ./shell
     ./git/default.nix
-    ./bash/default.nix
     ./k8s/default.nix
     ./containers/default.nix
   ]
@@ -60,6 +59,19 @@
         executable = true;
       };
     };
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      MANWIDTH = "100";
+      GOPATH = "${config.home.homeDirectory}/.local/share/go";
+      LESSOPEN = "|- ${config.home.homeDirectory}/.bin/less_wrap.sh %s";
+    };
+
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/.local/share/go/bin"
+      "$HOME/.cargo/bin"
+    ];
 
     # This value determines the Home Manager release that
     # this configuration is compatible with. It helps to

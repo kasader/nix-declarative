@@ -18,9 +18,6 @@ in {
 
 				# Applies vi mode to tools that use Readline (e.g. MySQL client or Python REPL).
 				set editing-mode vi
-
-				# Exports the default editor
-				export EDITOR=vim
 			'';
 		};
 	};
