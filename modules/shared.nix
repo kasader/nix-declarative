@@ -21,6 +21,7 @@
     ./git/default.nix
     ./bash/default.nix
     ./k8s/default.nix
+    ./containers/default.nix
   ]
   ++ lib.optionals isDarwin [ ./darwin ];
 
