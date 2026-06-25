@@ -43,6 +43,10 @@
       nixfmt
       go # just for testing (for now)
       direnv
+      tree
+      wget
+      tldr
+      curl
     ];
 
     file = {
