@@ -11,7 +11,8 @@ in
   programs.home-manager.enable = true;
 
   imports = [
-    ./librewolf.nix
+    # ./librewolf.nix
+    ./firefox.nix
     ./fzf.nix
     ./ripgrep.nix
     ./vim.nix
@@ -25,6 +26,7 @@ in
 
   home = {
     packages = with pkgs; [
+      hugo
       cowsay
       lolcat
       bat
