@@ -13,7 +13,6 @@
     ./fzf.nix
     ./ripgrep.nix
     ./vim.nix
-    ./starship/default.nix
     ./tmux/default.nix
     ./yazi/default.nix
     ./shell

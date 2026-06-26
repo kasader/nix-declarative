@@ -4,9 +4,11 @@
   home.username = "kasada";
   home.homeDirectory = "/Users/kasada";
 
-  # Browsers — pluggable, toggle per host.
+  # Pluggable modules — toggle per host.
   custom.browsers.firefox.enable = true;
   # custom.browsers.librewolf.enable = true;
+  custom.k8s.enable = true;
+  custom.containers.enable = true;
 
   # TODO: Add relevant packages/modules
 }

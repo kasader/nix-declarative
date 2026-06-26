@@ -1,12 +1,14 @@
 { ... }: {
   imports = [ ../../modules/shared.nix ];
-  
+
   home.username = "kasada";
   home.homeDirectory = "/home/kasada";
 
-  # Browsers — pluggable, toggle per host.
+  # Pluggable modules — toggle per host.
   custom.browsers.firefox.enable = true;
   # custom.browsers.librewolf.enable = true;
+  custom.k8s.enable = false;
+  custom.containers.enable = false;
 
   # TODO: Add relevant packages/modules
 }
