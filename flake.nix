@@ -47,14 +47,44 @@
 					# Platform flag passed via specialArgs so modules can branch `imports`
 					# without reading `pkgs` (which would be an infinite recursion).
 					extraSpecialArgs = { inherit (pkgsLinux.stdenv) isDarwin; };
-					modules = [ ./hosts/ramiel/home.nix nvf.homeManagerModules.default ./nvf.nix ]; # <- this imports the home-manager module that provides the options
+					modules = [ ./hosts/ramiel/home.nix nvf.homeManagerModules.default ]; # nvf.nix config now lives in modules/home/editors
 				};
 
 				"kasada@israfel" = home-manager.lib.homeManagerConfiguration {
 					pkgs = pkgsDarwin;
 					extraSpecialArgs = { inherit (pkgsDarwin.stdenv) isDarwin; };
-					modules = [ ./hosts/israfel/home.nix nvf.homeManagerModules.default ./nvf.nix ];
+					modules = [ ./hosts/israfel/home.nix nvf.homeManagerModules.default ];
 				};
+			};
+
+			# ── NixOS hosts ──────────────────────────────────────────────────
+			# ramiel integrates home-manager into the system, so a single
+			# `nixos-rebuild switch --flake .#ramiel` builds system + home. The
+			# portable home core (profiles/home/*) is reused verbatim via
+			# ./hosts/ramiel/home.nix.
+			#
+			# NOTE: ramiel's standalone homeConfiguration above still works during
+			# the migration. Once nixos-rebuild is good, delete it so home is not
+			# managed from two places.
+			nixosConfigurations.ramiel = lib.nixosSystem {
+				modules = [
+					./hosts/ramiel/configuration.nix
+					home-manager.nixosModules.home-manager
+					{
+						nixpkgs.config.allowUnfree = true;
+						# NUR overlay on the *system* pkgs so the integrated HM (which
+						# uses useGlobalPkgs) can resolve rycee.firefox-addons.floccus.
+						nixpkgs.overlays = [ nur.overlays.default ];
+
+						home-manager = {
+							useGlobalPkgs = true;
+							useUserPackages = true;
+							extraSpecialArgs = { isDarwin = false; };
+							sharedModules = [ nvf.homeManagerModules.default ];
+							users.kasada.imports = [ ./hosts/ramiel/home.nix ];
+						};
+					}
+				];
 			};
 		};
 }

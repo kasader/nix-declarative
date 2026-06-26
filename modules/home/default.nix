@@ -11,7 +11,7 @@
   imports = [
     ./tmux
     ./fzf.nix
-    ./vim.nix
+    ./editors
     ./yazi
     ./git
     ./shell
