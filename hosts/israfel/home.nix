@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
-    ../../profiles/base.nix
-    ../../profiles/darwin.nix
+    ../../profiles/home/base.nix
+    ../../profiles/home/darwin.nix
   ];
 
   home.username = "kasada";

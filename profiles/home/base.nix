@@ -3,7 +3,7 @@
   # The base profile: everything that belongs on *every* machine. It pulls in the
   # full module registry (so all `custom.*` options exist) and switches on the
   # universal set. Per-host extras are enabled in the host files instead.
-  imports = [ ../modules ];
+  imports = [ ../../modules/home ];
 
   programs.home-manager.enable = true;
 

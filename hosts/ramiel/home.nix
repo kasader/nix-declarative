@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ../../profiles/base.nix
+    ../../profiles/home/base.nix
   ];
 
   home.username = "kasada";
