@@ -10,7 +10,6 @@
   custom = {
     tmux.enable = true;
     fzf.enable = true;
-    ripgrep.enable = true;
     vim.enable = true;
     yazi.enable = true;
     git.enable = true;
@@ -23,6 +22,7 @@
       hugo
       cowsay
       lolcat
+      ripgrep
       fastfetch # TODO: Add an alias for neofetch (as it is now deprecated)
       bat
       pay-respects

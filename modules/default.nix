@@ -11,7 +11,6 @@
   imports = [
     ./tmux
     ./fzf.nix
-    ./ripgrep.nix
     ./vim.nix
     ./yazi
     ./git
