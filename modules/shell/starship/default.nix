@@ -1,17 +1,18 @@
-{ lib, ... }:
-
+{ config, lib, ... }:
 {
-	programs.starship = {
-		enable = true;
+  config = lib.mkIf config.custom.shell.enable {
+    programs.starship = {
+      enable = true;
 
-		enableFishIntegration = true;
-		enableTransience = true;
+      enableFishIntegration = true;
+      enableTransience = true;
 
-		# TODO: Presets will be added in the next release of home-manager (I think).
-		# presets = [ "nerd-font-symbols" ];
+      # TODO: Presets will be added in the next release of home-manager (I think).
+      # presets = [ "nerd-font-symbols" ];
 
-		settings = {
-			add_newline = false;
-		};
-	};
+      settings = {
+        add_newline = false;
+      };
+    };
+  };
 }

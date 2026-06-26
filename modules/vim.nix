@@ -1,26 +1,31 @@
-{ pkgs, ... }:
-
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.custom.vim;
+in
 {
-  programs.vim = {
-    enable = true;
+  options.custom.vim.enable = lib.mkEnableOption "vim editor";
 
-    plugins = with pkgs.vimPlugins; [
-      vim-airline
-      vim-go
-      vim-nix
-    ];
+  config = lib.mkIf cfg.enable {
+    programs.vim = {
+      enable = true;
 
-    extraConfig = 
-      ''
-      set autoindent
-      set ts=2 sw=2
-      set expandtab
-      set relativenumber
+      plugins = with pkgs.vimPlugins; [
+        vim-airline
+        vim-go
+        vim-nix
+      ];
 
-      set nocompatible
+      extraConfig = ''
+        set autoindent
+        set ts=2 sw=2
+        set expandtab
+        set relativenumber
 
-      " Syntax highlighting on by default:
-      syntax on
+        set nocompatible
+
+        " Syntax highlighting on by default:
+        syntax on
       '';
+    };
   };
-} 
+}

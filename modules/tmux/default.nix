@@ -1,12 +1,18 @@
-{ lib, ... }: let
-	something = "";
-in {
-	programs.tmux = {
-		enable = true; 
+{ config, lib, ... }:
+let
+  cfg = config.custom.tmux;
+in
+{
+  options.custom.tmux.enable = lib.mkEnableOption "tmux terminal multiplexer";
 
-		# Enables mouse support
-		mouse = true; 
-		
-		keyMode = "vi";
-	};
+  config = lib.mkIf cfg.enable {
+    programs.tmux = {
+      enable = true;
+
+      # Enables mouse support
+      mouse = true;
+
+      keyMode = "vi";
+    };
+  };
 }

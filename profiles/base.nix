@@ -1,27 +1,22 @@
+{ config, pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  isDarwin,
-  ...
-}:
-{
+  # The base profile: everything that belongs on *every* machine. It pulls in the
+  # full module registry (so all `custom.*` options exist) and switches on the
+  # universal set. Per-host extras are enabled in the host files instead.
+  imports = [ ../modules ];
+
   programs.home-manager.enable = true;
 
-  imports = [
-    ./browsers
-    ./fzf.nix
-    ./ripgrep.nix
-    ./vim.nix
-    ./tmux/default.nix
-    ./yazi/default.nix
-    ./shell
-    ./git/default.nix
-    ./k8s/default.nix
-    ./containers/default.nix
-    ./syncthing.nix
-  ]
-  ++ lib.optionals isDarwin [ ./darwin ];
+  custom = {
+    tmux.enable = true;
+    fzf.enable = true;
+    ripgrep.enable = true;
+    vim.enable = true;
+    yazi.enable = true;
+    git.enable = true;
+    shell.enable = true;
+    syncthing.enable = true;
+  };
 
   home = {
     packages = with pkgs; [
@@ -85,7 +80,7 @@
     stateVersion = "25.11";
   };
 
-  # TODO: Move this to its own standalone file (if it is needed).
+  # TODO: Move this to its own standalone module (if it is needed).
   programs.direnv = {
     enable = true;
     # FIXME: It seems like if you have 'enable = true;' then you don't need to configure your
@@ -98,5 +93,4 @@
       };
     };
   };
-
 }

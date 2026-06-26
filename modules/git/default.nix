@@ -1,37 +1,44 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.custom.git;
+in
 {
-  programs = {
+  options.custom.git.enable = lib.mkEnableOption "git and related tooling";
 
-    git = {
-      enable = true;
-      lfs.enable = true;
-      settings.user = {
-        name = "kasader";
-	email = "casada980@gmail.com";
-      };
-      settings.url = {
-        "ssh://git@github.com/" = {
-          insteadOf = "https://github.com/";
+  config = lib.mkIf cfg.enable {
+    programs = {
+
+      git = {
+        enable = true;
+        lfs.enable = true;
+        settings.user = {
+          name = "kasader";
+          email = "casada980@gmail.com";
         };
+        settings.url = {
+          "ssh://git@github.com/" = {
+            insteadOf = "https://github.com/";
+          };
+        };
+        settings.push.default = "current";
+        ignores = [
+          ".DS_Store"
+          "*~"
+          "**/.claude/settings.local.json"
+        ];
       };
-      settings.push.default = "current";
-      ignores = [
-        ".DS_Store"
-        "*~"
-        "**/.claude/settings.local.json"
-      ];
+
+      # TODO: Make sure to move to dedicated file.
+      delta = {
+        enable = true;
+        enableGitIntegration = true;
+      };
+
     };
 
-    # TODO: Make sure to move to dedicated file.
-    delta = {
-      enable = true;
-      enableGitIntegration = true;
-    };
-
-	};
-
-  home.packages = with pkgs; [
-    git-filter-repo
-    gitlint
-  ];
+    home.packages = with pkgs; [
+      git-filter-repo
+      gitlint
+    ];
+  };
 }

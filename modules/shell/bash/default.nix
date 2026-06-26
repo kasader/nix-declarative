@@ -1,24 +1,23 @@
-{ lib, ... }: let
-	something = "";
-in {
-	programs = {
-		bash = {
-			enable = true;
+{ config, lib, ... }:
+{
+  config = lib.mkIf config.custom.shell.enable {
+    programs.bash = {
+      enable = true;
 
-			shellAliases = {
-				f = "fish";
-				grep = "grep --color=auto";
-				ls = "ls --color";
-			};
+      shellAliases = {
+        f = "fish";
+        grep = "grep --color=auto";
+        ls = "ls --color";
+      };
 
-			# bashrcExtra for all shells, initExtra for interactive shells only
-			initExtra = ''
-				# Sets vim-style editing in Bash.
-				set -o vi
+      # bashrcExtra for all shells, initExtra for interactive shells only
+      initExtra = ''
+        # Sets vim-style editing in Bash.
+        set -o vi
 
-				# Applies vi mode to tools that use Readline (e.g. MySQL client or Python REPL).
-				set editing-mode vi
-			'';
-		};
-	};
+        # Applies vi mode to tools that use Readline (e.g. MySQL client or Python REPL).
+        set editing-mode vi
+      '';
+    };
+  };
 }

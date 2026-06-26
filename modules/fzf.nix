@@ -1,11 +1,17 @@
-{ lib, ... }:
-
+{ config, lib, ... }:
+let
+  cfg = config.custom.fzf;
+in
 {
-	programs.fzf = {
-		enable = true;
+  options.custom.fzf.enable = lib.mkEnableOption "fzf fuzzy finder";
 
-		# TODO: Insert other useful features, etc.
+  config = lib.mkIf cfg.enable {
+    programs.fzf = {
+      enable = true;
 
-		defaultCommand = "rg --files --hidden --glob=!.git/";
-	};
+      # TODO: Insert other useful features, etc.
+
+      defaultCommand = "rg --files --hidden --glob=!.git/";
+    };
+  };
 }
