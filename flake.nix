@@ -16,20 +16,28 @@
 			inputs.nixpkgs.follows = "nixpkgs"; # Stating *.follows = 'nixpkgs'; indicates that
 			# the home-manager input is DEPENDENT on nixpkgs. I.e, an import DAG creation.
 		};
+
+		# Nix User Repository — provides rycee.firefox-addons for declarative browser extensions.
+		nur = {
+			url = "github:nix-community/NUR";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
-	outputs = { nixpkgs, home-manager, nvf, ... }:
+	outputs = { nixpkgs, home-manager, nvf, nur, ... }:
 		let 
 			lib = nixpkgs.lib;
 
 			pkgsLinux = import nixpkgs {
 				system = "x86_64-linux";
 				config.allowUnfree = true;
+				overlays = [ nur.overlays.default ];
       };
 
 			pkgsDarwin = import nixpkgs {
 				system = "aarch64-darwin";
 				config.allowUnfree = true;
+				overlays = [ nur.overlays.default ];
 			};
 
 		in {

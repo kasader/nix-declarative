@@ -9,8 +9,7 @@
   programs.home-manager.enable = true;
 
   imports = [
-    # ./librewolf.nix
-    ./firefox.nix
+    ./browsers
     ./fzf.nix
     ./ripgrep.nix
     ./vim.nix
