@@ -21,6 +21,7 @@
     ./git/default.nix
     ./k8s/default.nix
     ./containers/default.nix
+    ./syncthing.nix
   ]
   ++ lib.optionals isDarwin [ ./darwin ];
 
@@ -47,6 +48,11 @@
       tldr
       curl
       keepassxc
+      yubikey-manager
+      ffmpeg
+
+      # TODO: Add Soulseek server-client (at some point...)
+      # https://github.com/slskd/slskd/
     ];
 
     file = {
