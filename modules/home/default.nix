@@ -12,6 +12,7 @@
     ./tmux
     ./fzf.nix
     ./editors
+    ./terminal
     ./yazi
     ./git
     ./ghq

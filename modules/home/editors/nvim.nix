@@ -1,57 +1,71 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  # See (for more info on using xdg home for config defs):
-  # https://haripm.com/2025/09/05/neovim-nixos-setup/
+  # Neovim, the "Nix owns the tools, Lua owns the config" way.
   #
-  # xdg.configFile."nvim/init.lua" = {
-  #   enable = true;
-  #   source = ./dotfiles/nvim/init.lua;
-  # };
+  #   - Nix installs the binary plus every native dependency that is painful to
+  #     get right by hand: LSP servers, formatters, the tree-sitter compiler,
+  #     ripgrep, fd, a C compiler and node for plugins that shell out.
+  #   - lazy.nvim (bootstrapped inside the Lua config) manages plugins at runtime,
+  #     so trying a plugin never needs a home-manager rebuild and every upstream
+  #     neovim guide applies verbatim.
+  #   - The Lua config lives in this repo and is mounted as an *out-of-store*
+  #     symlink (see xdg.configFile below), so edits under nvim/ take effect on
+  #     the next restart with no rebuild, yet stay version-controlled.
+  #
+  # We deliberately leave programs.neovim.plugins / extraConfig empty: a non-empty
+  # value makes home-manager generate its own init.lua, which would collide with
+  # the symlinked config dir. Plugins and config are owned by Lua, not Nix.
 
   programs.neovim = {
     enable = true;
-
     defaultEditor = true;
-
-    plugins = with pkgs.vimPlugins; [
-      nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-      telescope-nvim
-      catppuccin-nvim
-      conform-nvim
-      nvim-autopairs
-      comment-nvim
-      lualine-nvim
-      blink-cmp
-      todo-comments-nvim
-      trouble-nvim
-      undotree
-    ];
+    viAlias = true;
+    vimAlias = true;
+    withNodeJs = true;
 
     extraPackages = with pkgs; [
-      # formatters
-      ruff
-      stylua
+      # ── tools plugins shell out to ──
+      ripgrep # telescope live-grep
+      fd # telescope file finder
+      tree-sitter # :TSUpdate grammar compilation
+      gcc # treesitter / native plugin compilation
+      gnumake # build step for fzf-native etc.
+
+      # ── Go ──
+      gopls
+      delve
+      gotools # goimports
+      gofumpt
+
+      # ── Nix ──
+      nixd
       alejandra
 
-      # language servers
-      pyright
+      # ── C / C++ ──
+      clang-tools # clangd + clang-format
+
+      # ── Web / config languages ──
+      yaml-language-server
+      vscode-langservers-extracted # jsonls, html, cssls, eslint
+      dockerfile-language-server
+      bash-language-server
+      marksman # markdown
+      taplo # toml
+      nodePackages.prettier
+      shfmt
+
+      # ── Lua (to hack on this very config) ──
       lua-language-server
-      nil
+      stylua
     ];
-
-    extraConfig = 
-      ''
-      set autoindent
-      set ts=2 sw=2
-      set expandtab
-      set relativenumber
-
-      set nocompatible
-
-      " Syntax highlighting on by default:
-      syntax on
-      '';
   };
-} 
+
+  # Live-editable config: symlink the repo's nvim/ dir into ~/.config/nvim rather
+  # than copying it to the read-only Nix store. lazy.nvim can then write its
+  # lazy-lock.json back into the repo. Assumes this repo is checked out at
+  # ~/.config/nix-declarative on every host (true on darwin; verify on NixOS).
+  xdg.configFile.nvim.source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.config/nix-declarative/modules/home/editors/nvim";
+}
