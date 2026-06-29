@@ -5,6 +5,7 @@
       enable = true;
 
       enableFishIntegration = true;
+      enableZshIntegration = true;
       enableTransience = true;
 
       # TODO: Presets will be added in the next release of home-manager (I think).

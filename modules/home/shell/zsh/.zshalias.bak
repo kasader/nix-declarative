@@ -1,0 +1,40 @@
+alias k='kubectl'
+alias kctx='kubectx'
+alias kns='kubens'
+
+alias mr='mise run'
+alias glci='golangci-lint run ./...'
+
+alias gcnv='git commit --no-verify -m'
+
+alias gclist='gcloud config configurations list'
+alias gcact='gcloud config configuration activate'
+
+alias e=$EDITOR
+alias c='clear'
+
+#   ____             __ _
+#  / ___|___  _ __  / _(_) __ _
+# | |   / _ \| '_ \| |_| |/ _` |
+# | |__| (_) | | | |  _| | (_| |
+#  \____\___/|_| |_|_| |_|\__, |
+#                         |___/
+alias zshrc='e ~/.zshrc'
+alias zsha='e ~/.zsh_alias'
+alias nvimc='e ~/.config/nvim/init.lua'
+alias zshsrc='source ~/.zshrc'
+
+alias lg='lazygit'
+alias td='~/.bin/t_diarkis.sh'
+alias buildd='~/.bin/build_server.sh'
+alias killd='~/.bin/kill_diarkis.sh'
+alias buildlocal='~/.bin/build_server_local.sh'
+alias vim='nvim'
+
+alias ls='ls --color'
+
+alias ls='ls --color'
+
+alias worktree='~/.bin/worktree.sh'
+alias go-scrape='~/.bin/go-scrape2.sh'
+alias scrape='~/.bin/scrape.sh'
