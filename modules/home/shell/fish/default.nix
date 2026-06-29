@@ -1,6 +1,14 @@
 { config, lib, ... }:
 {
   config = lib.mkIf config.custom.shell.enable {
+    # Templates that `devinit` copies into a project to scaffold a Nix devShell
+    # + direnv. Stored as real files (not heredocs) so flake's `${system}` and
+    # the shell `$` survive without nix/fish escaping.
+    xdg.configFile = {
+      "dev-templates/flake.nix".source = ./templates/flake.nix;
+      "dev-templates/envrc".source = ./templates/envrc;
+    };
+
     programs.fish = {
       enable = true;
 
@@ -40,6 +48,11 @@
         gp = "git push";
         gpf = "git push --force";
 
+        ghg = "ghq clone";
+        ghl = "ghq list";
+        ghrm = "ghq rm";
+        ghcr = "ghq create";
+
         lg = "lazygit";
         gcnv = "git commit --no-verify -m";
 
@@ -74,6 +87,28 @@
             			end
             			rm -f -- "$tmp"
             			'';
+
+        devinit = # fish
+          ''
+            set -l tdir $HOME/.config/dev-templates
+            set -l made 0
+            # source name -> destination name (flake.nix stays, envrc -> .envrc)
+            for pair in flake.nix:flake.nix envrc:.envrc
+              set -l src (string split -m1 ':' $pair)[1]
+              set -l dst (string split -m1 ':' $pair)[2]
+              if test -e $dst
+                echo "devinit: $dst already exists, skipping"
+              else
+                cp $tdir/$src $dst
+                chmod u+w $dst # nix store sources are read-only
+                echo "devinit: created $dst"
+                set made 1
+              end
+            end
+            if test $made -eq 1; and type -q direnv
+              direnv allow
+            end
+          '';
       };
     };
   };

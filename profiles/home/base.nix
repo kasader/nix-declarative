@@ -13,6 +13,8 @@
     vim.enable = true;
     yazi.enable = true;
     git.enable = true;
+    ghq.enable = true;
+    fonts.enable = true;
     shell.enable = true;
     syncthing.enable = true;
   };
@@ -23,6 +25,12 @@
       cowsay
       lolcat
       ripgrep
+      
+      # typing tests
+      ttyper
+      typioca
+      gtypist
+
       fastfetch # TODO: Add an alias for neofetch (as it is now deprecated)
       bat
       pay-respects

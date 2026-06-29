@@ -14,6 +14,8 @@
     ./editors
     ./yazi
     ./git
+    ./ghq
+    ./fonts
     ./shell
     ./syncthing.nix
     ./k8s

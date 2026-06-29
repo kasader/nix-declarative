@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# direnv loads the Nix flake in this directory, equivalent to `nix develop`
+# but applied automatically on `cd`. https://direnv.net/
+use flake
+
+# Local dev secrets: drop KEY=value pairs in a .env (don't commit it).
+if [ -f .env ]; then
+  dotenv .env
+fi
