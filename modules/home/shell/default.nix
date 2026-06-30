@@ -12,7 +12,8 @@
     ./zsh/default.nix
     ./starship/default.nix
     # fzf is shell-tier (interactive fuzzy finder, per-shell integration) but
-    # keeps its own custom.fzf.enable toggle rather than folding into shell.enable.
+    # keeps its own custom.shell.fzf.enable toggle rather than folding into
+    # custom.shell.enable.
     ./fzf/default.nix
   ];
 }

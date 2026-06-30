@@ -1,9 +1,15 @@
-{ config, lib, pkgs, isDarwin, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  isDarwin,
+  ...
+}:
 let
-  cfg = config.custom.ghostty;
+  cfg = config.custom.terminal.ghostty;
 in
 {
-  options.custom.ghostty.enable = lib.mkEnableOption "Ghostty terminal emulator";
+  options.custom.terminal.ghostty.enable = lib.mkEnableOption "Ghostty terminal emulator";
 
   config = lib.mkIf cfg.enable {
     programs.ghostty = {

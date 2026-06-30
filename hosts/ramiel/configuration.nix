@@ -5,7 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/nixos/base.nix
-    # ../../profiles/nixos/desktop.nix   # Phase 3 — DE/WM session
+    ../../profiles/nixos/desktop.nix
   ];
 
   networking.hostName = "ramiel";

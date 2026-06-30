@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.custom.tmux;
+  cfg = config.custom.terminal.tmux;
 in
 {
-  options.custom.tmux.enable = lib.mkEnableOption "tmux terminal multiplexer";
+  options.custom.terminal.tmux.enable = lib.mkEnableOption "tmux terminal multiplexer";
 
   config = lib.mkIf cfg.enable {
     programs.tmux = {

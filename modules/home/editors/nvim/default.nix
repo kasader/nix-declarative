@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.custom.nvim;
+  cfg = config.custom.editors.nvim;
 in
 {
   # Neovim, the "Nix owns the tools, Lua owns the config" way.
@@ -16,15 +16,18 @@ in
   #   - lazy.nvim (bootstrapped inside the Lua config) manages plugins at runtime,
   #     so trying a plugin never needs a home-manager rebuild and every upstream
   #     neovim guide applies verbatim.
-  #   - The Lua config lives in this repo and is mounted as an *out-of-store*
-  #     symlink (see xdg.configFile below), so edits under nvim/ take effect on
-  #     the next restart with no rebuild, yet stay version-controlled.
+  #   - The Lua config lives in this repo (./config) and is mounted as an
+  #     *out-of-store* symlink (see xdg.configFile below), so edits under
+  #     ./config take effect on the next restart with no rebuild, yet stay
+  #     version-controlled. It sits in a ./config subdir so this module's
+  #     default.nix is not itself exposed inside ~/.config/nvim.
   #
   # We deliberately leave programs.neovim.plugins / extraConfig empty: a non-empty
   # value makes home-manager generate its own init.lua, which would collide with
   # the symlinked config dir. Plugins and config are owned by Lua, not Nix.
 
-  options.custom.nvim.enable = lib.mkEnableOption "Neovim (lazy.nvim-managed, out-of-store Lua config)";
+  options.custom.editors.nvim.enable =
+    lib.mkEnableOption "Neovim (lazy.nvim-managed, out-of-store Lua config)";
 
   config = lib.mkIf cfg.enable {
     programs.neovim = {
@@ -71,10 +74,10 @@ in
       ];
     };
 
-    # Live-editable config: symlink the repo's nvim/ dir into ~/.config/nvim rather
-    # than copying it to the read-only Nix store. lazy.nvim can then write its
-    # lazy-lock.json back into the repo. Repo location is the single source of
+    # Live-editable config: symlink the repo's nvim config dir into ~/.config/nvim
+    # rather than copying it to the read-only Nix store. lazy.nvim can then write
+    # its lazy-lock.json back into the repo. Repo location is the single source of
     # truth custom.flakeDir (see modules/home/default.nix).
-    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.custom.flakeDir}/modules/home/editors/nvim";
+    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.custom.flakeDir}/modules/home/editors/nvim/config";
   };
 }

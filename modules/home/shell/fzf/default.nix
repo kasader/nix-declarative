@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.custom.fzf;
+  cfg = config.custom.shell.fzf;
 in
 {
-  options.custom.fzf.enable = lib.mkEnableOption "fzf fuzzy finder";
+  options.custom.shell.fzf.enable = lib.mkEnableOption "fzf fuzzy finder";
 
   config = lib.mkIf cfg.enable {
     programs.fzf = {

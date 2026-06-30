@@ -8,16 +8,19 @@
   programs.home-manager.enable = true;
 
   custom = {
-    tmux.enable = true;
-    fzf.enable = true;
-    vim.enable = true;
-    nvim.enable = true;
-    ghostty.enable = true;
     fonts.enable = true;
-    shell.enable = true;
     security.enable = true;
     media.enable = true;
     fun.enable = true;
+    editors.nvim.enable = true;
+    shell = {
+      enable = true;
+      fzf.enable = true;
+    };
+    terminal = {
+      ghostty.enable = true;
+      tmux.enable = true;
+    };
     vcs = {
       git.enable = true;
       ghq.enable = true;
@@ -33,9 +36,9 @@
 
   home = {
     # Universal misc CLI tools that don't warrant a topical module. Themed sets
-    # live in their own modules instead: security, media, fun (toys/typing), git,
+    # live in their own modules instead: security, media, fun (toys/typing), vcs,
     # languages, etc. — see the custom.* toggles above. delta and direnv are NOT
-    # listed here: they ship via programs.delta (git module) and programs.direnv.
+    # listed here: they ship via programs.delta (vcs/git) and programs.direnv.
     packages = with pkgs; [
       hugo
       gnugrep

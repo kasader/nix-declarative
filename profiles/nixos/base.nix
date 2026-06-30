@@ -4,22 +4,37 @@
   # editors, …) is provided by profiles/home/base.nix via integrated home-manager;
   # this file owns only what must live at the system level.
   #
-  # Everything marked TODO(ramiel) is a placeholder — confirm/replace it against
-  # your existing /etc/nixos/configuration.nix when you migrate on the machine.
+  # Values below are confirmed against ramiel's installed configuration; the one
+  # remaining TODO(ramiel) is declarative password management (see below).
   imports = [ ../../modules/nixos ];
 
   # Flakes + modern nix CLI.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-  # TODO(ramiel): bootloader. systemd-boot assumes UEFI; switch to grub if BIOS.
+  # Bootloader: ramiel is UEFI (systemd-boot). mkDefault so a future BIOS host
+  # can override with grub.
   boot.loader.systemd-boot.enable = lib.mkDefault true;
   boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
 
-  # TODO(ramiel): locale / timezone.
+  # Locale / timezone. English UI, Japanese formatting (dates, measurements, …).
   time.timeZone = lib.mkDefault "Asia/Tokyo";
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "ja_JP.UTF-8";
+    LC_IDENTIFICATION = "ja_JP.UTF-8";
+    LC_MEASUREMENT = "ja_JP.UTF-8";
+    LC_MONETARY = "ja_JP.UTF-8";
+    LC_NAME = "ja_JP.UTF-8";
+    LC_NUMERIC = "ja_JP.UTF-8";
+    LC_PAPER = "ja_JP.UTF-8";
+    LC_TELEPHONE = "ja_JP.UTF-8";
+    LC_TIME = "ja_JP.UTF-8";
+  };
 
-  # TODO(ramiel): networking. NetworkManager is the safe default for a workstation.
+  # Networking via NetworkManager (workstation default).
   networking.networkmanager.enable = lib.mkDefault true;
 
   # NixOS owns the *account*; home-manager owns the account's *home*. Fish is the
@@ -28,12 +43,18 @@
   users.users.kasada = {
     isNormalUser = true;
     description = "kasada";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
     shell = pkgs.fish;
     # TODO(ramiel): set an initial password with `passwd` after first boot, or
     # manage it declaratively (hashedPasswordFile) once secrets are wired up.
   };
 
   # Minimal system-level packages; the bulk lives in home-manager.
-  environment.systemPackages = with pkgs; [ git vim ];
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+  ];
 }
