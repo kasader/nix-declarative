@@ -29,6 +29,9 @@ in
 
     # Fallback toolchain for ad-hoc use; a project's dev-shell shadows this when
     # you direnv into it.
-    home.packages = lib.mkIf cfg.installToolchain [ pkgs.go ];
+    home.packages = lib.mkIf cfg.installToolchain [
+      pkgs.go
+      pkgs.mage # TODO: for required projects (would like to eventually remove dependency).
+    ];
   };
 }

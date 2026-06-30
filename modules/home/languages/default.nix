@@ -7,5 +7,6 @@
   imports = [
     ./go.nix
     ./rust.nix
+    ./python3.nix
   ];
 }

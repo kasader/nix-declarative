@@ -18,8 +18,11 @@
     fonts.enable = true;
     shell.enable = true;
     syncthing.enable = true;
-    languages.go.enable = true;
-    languages.rust.enable = true;
+    languages = {
+      go.enable = true;
+      rust.enable = true;
+      python3.enable = true;
+    };
   };
 
   home = {
@@ -28,7 +31,7 @@
       cowsay
       lolcat
       ripgrep
-      
+
       # typing tests
       ttyper
       typioca
@@ -53,6 +56,29 @@
       keepassxc
       yubikey-manager
       ffmpeg
+
+      # Migrated off Homebrew (`brew leaves`). Stable, cross-platform CLI tools
+      # that nix packages cleanly. Build toolchains (cmake/meson/llvm/golangci-lint
+      # /mage/doxygen) deliberately stay out of the global env and belong in each
+      # project's dev-shell instead.
+      gh
+      coreutils
+      ncdu
+      nmap
+      socat
+      inetutils # provides telnet
+      aria2
+      shfmt
+      stylua
+      universal-ctags
+      graphviz
+      bashInteractive
+      mpv # CLI player; the `iina` cask is the GUI front-end over the same engine
+
+      # toys, matching the cowsay/lolcat/figlet/sl set above
+      asciiquarium
+      cmatrix
+      boxes
 
       # TODO: Add Soulseek server-client (at some point...)
       # https://github.com/slskd/slskd/

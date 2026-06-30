@@ -15,7 +15,6 @@
     # Taps required by the casks below; core casks (homebrew/cask) need none.
     taps = [
       "nikitabobko/tap" # aerospace
-      "goreleaser/tap" # goreleaser
       "isen-ng/dotnet-sdk-versions" # dotnet-sdk6*
     ];
 
@@ -26,7 +25,6 @@
       "dotnet-sdk6"
       "dotnet-sdk6-0-400"
       "ghostty"
-      "goreleaser"
       "handbrake-app"
       "iina"
       "librewolf"
