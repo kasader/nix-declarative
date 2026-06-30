@@ -57,13 +57,10 @@
 
       sessionVariables = {
         # oh-my-zsh runs compinit itself and only honors a pre-set ZSH_COMPDUMP;
-        # point it at XDG cache so no .zcompdump lands in ~/.config/zsh.
+        # point it at XDG cache so no .zcompdump lands in ~/.config/zsh. The rest
+        # of the env (EDITOR, GOPATH, MANWIDTH, LESSOPEN, DIARKIS_PATH) is shell-
+        # agnostic and lives in profiles/home/base.nix's home.sessionVariables.
         ZSH_COMPDUMP = "${config.xdg.cacheHome}/zsh/zcompdump";
-        EDITOR = "nvim";
-        MANWIDTH = "100";
-        LESSOPEN = "|- ${config.home.homeDirectory}/.bin/less_wrap.sh %s";
-        GOPATH = "${config.home.homeDirectory}/.local/share/go";
-        DIARKIS_PATH = "${config.home.homeDirectory}/diarkis";
       };
 
       shellAliases = {
@@ -98,19 +95,16 @@
         scrape = "~/.bin/scrape.sh";
       };
 
-      # Sourced for all shells (.zshenv) — preserves the old cargo env setup.
-      # SHELL_SESSIONS_DISABLE must be set here (not in .zshrc) so it lands
+      # SHELL_SESSIONS_DISABLE must be set in .zshenv (not .zshrc) so it lands
       # before macOS's /etc/zshrc_Apple_Terminal registers its session hooks,
-      # which is what would otherwise create ~/.zsh_sessions.
+      # which is what would otherwise create ~/.zsh_sessions. (PATH — incl.
+      # .cargo/bin — comes from home.sessionPath in profiles/home/base.nix.)
       envExtra = ''
         export SHELL_SESSIONS_DISABLE=1
-        [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
       '';
 
-      # Interactive-shell setup: PATH order, completion styling, keybindings.
+      # Interactive-shell setup: completion styling, keybindings, mise.
       initContent = ''
-        export PATH="$GOPATH/bin:$HOME/.local/bin:$PATH"
-
         bindkey '^p' history-search-backward
         bindkey '^n' history-search-forward
 

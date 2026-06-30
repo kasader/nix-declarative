@@ -74,6 +74,7 @@
       MANWIDTH = "100";
       GOPATH = "${config.home.homeDirectory}/.local/share/go";
       LESSOPEN = "|- ${config.home.homeDirectory}/.bin/less_wrap.sh %s";
+      DIARKIS_PATH = "${config.home.homeDirectory}/diarkis";
     };
 
     sessionPath = [

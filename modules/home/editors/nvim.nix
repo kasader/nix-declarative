@@ -63,10 +63,8 @@
 
   # Live-editable config: symlink the repo's nvim/ dir into ~/.config/nvim rather
   # than copying it to the read-only Nix store. lazy.nvim can then write its
-  # lazy-lock.json back into the repo. Assumes this repo is checked out at
-  # ~/src/github.com/kasader/nix-declarative (ghq layout) on every host — must
-  # match NIX_FLAKE in modules/home/shell/fish and FLAKE in the Makefile.
+  # lazy-lock.json back into the repo. Repo location is the single source of
+  # truth custom.flakeDir (see modules/home/default.nix).
   xdg.configFile.nvim.source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/src/github.com/kasader/nix-declarative/modules/home/editors/nvim";
+    config.lib.file.mkOutOfStoreSymlink "${config.custom.flakeDir}/modules/home/editors/nvim";
 }

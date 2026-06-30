@@ -10,9 +10,8 @@
     };
 
     # Absolute path to this flake, so the `mk` wrapper (and any rebuild abbr) can
-    # drive the Makefile from any directory. Portable across hosts via
-    # homeDirectory; the repo lives in the ghq tree on every machine.
-    home.sessionVariables.NIX_FLAKE = "${config.home.homeDirectory}/src/github.com/kasader/nix-declarative";
+    # drive the Makefile from any directory. Single source of truth: custom.flakeDir.
+    home.sessionVariables.NIX_FLAKE = config.custom.flakeDir;
 
     programs.fish = {
       enable = true;
@@ -33,58 +32,8 @@
         end
       '';
 
-      shellAliases = {
-        c = "clear";
-        vim = "nvim";
-        # TODO: add more shell aliases (borrow from older conifgs, at some point).
-        # ...
-      };
-
-      shellAbbrs = {
-
-        # git family
-        g = "git";
-        ga = "git add";
-        gcm = "git commit -m";
-        gcnm = "git commit -n -m";
-        gd = "git diff";
-        gds = "git diff --staged";
-        gs = "git status";
-        gp = "git push";
-        gpf = "git push --force";
-
-        ghg = "ghq clone";
-        ghl = "ghq list";
-        ghrm = "ghq rm";
-        ghcr = "ghq create";
-
-        lg = "lazygit";
-        gcnv = "git commit --no-verify -m";
-
-        # go family
-        glci = "golangci-lint run ./...";
-
-        # gcloud family
-        gclist = "gcloud config configurations list";
-        gcact = "gcloud config configuration activate";
-
-        # k8s family
-        k = "kubectl";
-        kctx = "kubectx";
-        kns = "kubens";
-
-        # nix family — drive the flake's Makefile from anywhere (see `mk` below)
-        nrs = "mk switch"; # rebuild + activate THIS host (auto-detected)
-        nrb = "mk build"; # build THIS host without activating
-
-        e = "$EDITOR";
-        c = "clear";
-
-        ls = "ls --color";
-
-        # TODO: add more abbreviations here.
-        # (See: https://github.com/donovanglover/nix-config/blob/master/home/fish.nix)
-      };
+      shellAliases = import ./aliases.nix;
+      shellAbbrs = import ./abbrs.nix;
 
       functions = {
         # Run the nix-declarative Makefile from any directory: `mk fmt`, `mk gc`,
