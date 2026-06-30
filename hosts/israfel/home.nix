@@ -12,4 +12,7 @@
   # custom.browsers.librewolf.enable = true;
   custom.k8s.enable = true;
   custom.containers.enable = true;
+  custom.cloud.gcp.enable = true;
+  # custom.cloud.aws.enable = true;
+  # custom.cloud.oci.enable = true;
 }

@@ -32,9 +32,9 @@
   kctx = "kubectx";
   kns = "kubens";
 
-  # nix family — drive the flake's Makefile from anywhere (see `mk` in default.nix)
-  nrs = "mk switch"; # rebuild + activate THIS host (auto-detected)
-  nrb = "mk build"; # build THIS host without activating
+  # nix family — drive the flake's Makefile from anywhere (see `mknix` in functions.nix)
+  nrs = "mknix switch"; # rebuild + activate THIS host (auto-detected)
+  nrb = "mknix build"; # build THIS host without activating
 
   e = "$EDITOR";
   c = "clear";

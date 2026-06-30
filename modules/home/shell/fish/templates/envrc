@@ -4,7 +4,7 @@
 # but applied automatically on `cd`. https://direnv.net/
 use flake
 
-# Local dev secrets: drop KEY=value pairs in a .env (don't commit it).
-if [ -f .env ]; then
-  dotenv .env
-fi
+# Local dev secrets: copy .env.example -> .env and fill in values.
+# .env is the gitignored cache; never commit it. dotenv_if_exists is a no-op
+# when the file is absent, and re-loads direnv whenever the file changes.
+dotenv_if_exists .env

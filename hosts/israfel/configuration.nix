@@ -20,10 +20,6 @@
 
     casks = [
       # "aerospace"
-      "betterdisplay"
-      "dotnet-sdk"
-      "dotnet-sdk6"
-      "dotnet-sdk6-0-400"
       "ghostty"
       "handbrake-app"
       "iina"

@@ -2,7 +2,7 @@
 {
   # Live working-tree checkout of this flake. The single source of truth for
   # "where does this repo live" — consumed by out-of-store symlinks (nvim) and
-  # the `mk` wrapper's NIX_FLAKE. Computed per-host from homeDirectory so it
+  # the `mknix` wrapper's NIX_FLAKE. Computed per-host from homeDirectory so it
   # stays correct on darwin (/Users) and NixOS (/home). Moving the repo is one
   # edit here (plus FLAKE in the Makefile, which can't read Nix).
   options.custom.flakeDir = lib.mkOption {
@@ -34,5 +34,6 @@
     ./k8s
     ./containers
     ./browsers
+    ./cloud
   ];
 }

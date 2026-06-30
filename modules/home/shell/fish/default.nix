@@ -7,9 +7,10 @@
     xdg.configFile = {
       "dev-templates/flake.nix".source = ./templates/flake.nix;
       "dev-templates/envrc".source = ./templates/envrc;
+      "dev-templates/env.example".source = ./templates/env.example;
     };
 
-    # Absolute path to this flake, so the `mk` wrapper (and any rebuild abbr) can
+    # Absolute path to this flake, so the `mknix` wrapper (and any rebuild abbr) can
     # drive the Makefile from any directory. Single source of truth: custom.flakeDir.
     home.sessionVariables.NIX_FLAKE = config.custom.flakeDir;
 
@@ -26,10 +27,6 @@
       # Runs for login shells — env/PATH setup that terminals (Alacritty, VSCode, …) inherit.
       loginShellInit = ''
         /opt/homebrew/bin/brew shellenv fish | source
-
-        if test -f $HOME/.local/share/google-cloud-sdk/path.fish.inc
-          source $HOME/.local/share/google-cloud-sdk/path.fish.inc
-        end
       '';
 
       shellAliases = import ./aliases.nix;

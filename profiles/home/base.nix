@@ -31,7 +31,7 @@
       cowsay
       lolcat
 
-      grep
+      gnugrep
       ripgrep
 
       # typing tests
