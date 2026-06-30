@@ -1,4 +1,6 @@
 # Ignore vim files
 *.swp
-result/
+
+# nix build output symlinks (result, result-1, result-2, …)
 result
+result-*

@@ -63,7 +63,7 @@
           ]; # nvf.nix config now lives in modules/home/editors
         };
         # israfel (macOS) is no longer a standalone home config — its home is
-        # integrated into darwinConfigurations.Israfel below, built by
+        # integrated into darwinConfigurations.israfel below, built by
         # `darwin-rebuild switch`. Standalone HM here owned ~/.nix-profile, which
         # is exactly what broke the login shell during the switchover.
       };
@@ -102,10 +102,10 @@
 
       # ── macOS hosts ──────────────────────────────────────────────────
       # israfel integrates home-manager into nix-darwin, so a single
-      # `darwin-rebuild switch --flake .#Israfel` builds system + home —
+      # `darwin-rebuild switch --flake .#israfel` builds system + home —
       # the same two-tier integration as ramiel, and the system layer
       # (Homebrew, shells) now lives here instead of a separate repo.
-      darwinConfigurations."Israfel" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."israfel" = nix-darwin.lib.darwinSystem {
         modules = [
           ./hosts/israfel/configuration.nix
           home-manager.darwinModules.home-manager

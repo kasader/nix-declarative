@@ -9,6 +9,11 @@
       "dev-templates/envrc".source = ./templates/envrc;
     };
 
+    # Absolute path to this flake, so the `mk` wrapper (and any rebuild abbr) can
+    # drive the Makefile from any directory. Portable across hosts via
+    # homeDirectory; the repo lives in the ghq tree on every machine.
+    home.sessionVariables.NIX_FLAKE = "${config.home.homeDirectory}/src/github.com/kasader/nix-declarative";
+
     programs.fish = {
       enable = true;
 
@@ -68,6 +73,10 @@
         kctx = "kubectx";
         kns = "kubens";
 
+        # nix family — drive the flake's Makefile from anywhere (see `mk` below)
+        nrs = "mk switch"; # rebuild + activate THIS host (auto-detected)
+        nrb = "mk build"; # build THIS host without activating
+
         e = "$EDITOR";
         c = "clear";
 
@@ -78,6 +87,13 @@
       };
 
       functions = {
+        # Run the nix-declarative Makefile from any directory: `mk fmt`, `mk gc`,
+        # `mk israfel`, `mk switch`, …. NIX_FLAKE is set above.
+        mk = # fish
+          ''
+            make -C $NIX_FLAKE $argv
+          '';
+
         y = # fish
           ''
             			set tmp (mktemp -t "yazi-cwd.XXXXXX")
