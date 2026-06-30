@@ -23,6 +23,7 @@
     ./tmux
     ./fzf.nix
     ./editors
+    ./languages
     ./terminal
     ./yazi
     ./git

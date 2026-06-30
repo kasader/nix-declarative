@@ -18,6 +18,8 @@
     fonts.enable = true;
     shell.enable = true;
     syncthing.enable = true;
+    languages.go.enable = true;
+    languages.rust.enable = true;
   };
 
   home = {
@@ -43,7 +45,6 @@
       sl # steam engine
       jq
       nixfmt
-      go # just for testing (for now)
       direnv
       tree
       wget
@@ -72,15 +73,14 @@
     sessionVariables = {
       EDITOR = "nvim";
       MANWIDTH = "100";
-      GOPATH = "${config.home.homeDirectory}/.local/share/go";
       LESSOPEN = "|- ${config.home.homeDirectory}/.bin/less_wrap.sh %s";
       DIARKIS_PATH = "${config.home.homeDirectory}/diarkis";
     };
 
+    # Per-language install dirs (Go GOBIN, cargo CARGO_INSTALL_ROOT) target
+    # ~/.local/bin, so no language-specific bin dirs are needed here.
     sessionPath = [
       "$HOME/.local/bin"
-      "$HOME/.local/share/go/bin"
-      "$HOME/.cargo/bin"
     ];
 
     # This value determines the Home Manager release that
