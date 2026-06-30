@@ -30,6 +30,8 @@
       hugo
       cowsay
       lolcat
+
+      grep
       ripgrep
 
       # typing tests
@@ -74,6 +76,7 @@
       graphviz
       bashInteractive
       mpv # CLI player; the `iina` cask is the GUI front-end over the same engine
+      watch
 
       # toys, matching the cowsay/lolcat/figlet/sl set above
       asciiquarium
@@ -82,6 +85,9 @@
 
       # TODO: Add Soulseek server-client (at some point...)
       # https://github.com/slskd/slskd/
+
+      # TODO: Good OCR for when you need to do JPNs something?
+      # tesseract
     ];
 
     file = {
