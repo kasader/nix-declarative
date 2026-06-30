@@ -10,13 +10,11 @@ let
   cfg = config.custom.containers;
 in
 {
-  options.custom.containers.enable =
-    lib.mkEnableOption "container tooling (Podman, lazydocker, dive)";
+  options.custom.containers.enable = lib.mkEnableOption "container tooling (Podman, lazydocker, dive)";
 
   config = lib.mkIf cfg.enable {
     # Cross-platform container client tooling. The engine is platform specific:
-    # on Darwin it comes from OrbStack (modules/darwin/orbstack.nix); on Linux we
-    # run rootless Podman.
+    # on Darwin it's OrbStack; on Linux we run rootless Podman.
     home.packages =
       with pkgs;
       [
@@ -26,6 +24,12 @@ in
       # `podman` itself is added by `services.podman` below; only the extras here.
       ++ lib.optionals (!isDarwin) [
         podman-compose
+      ]
+      ++ lib.optionals isDarwin [
+        # OrbStack (macOS container / Linux-VM engine) currently ships via the
+        # Homebrew cask in hosts/israfel/configuration.nix. Uncomment to move it
+        # under nix and drop the cask — completes the brew→nix migration.
+        # orbstack
       ];
 
     services.podman = lib.mkIf (!isDarwin) {

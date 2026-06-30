@@ -1,8 +1,9 @@
 { ... }:
 {
-  # Terminal emulators. Ghostty is the sole emulator; toggle-gated via
-  # custom.ghostty.enable. Room here for additional emulators later.
+  # The terminal environment: emulator + multiplexer, each toggle-gated
+  # (custom.ghostty.enable, custom.tmux.enable). Room here for more later.
   imports = [
     ./ghostty.nix
+    ./tmux.nix
   ];
 }

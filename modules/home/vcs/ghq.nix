@@ -5,10 +5,11 @@
   ...
 }:
 let
-  cfg = config.custom.ghq;
+  cfg = config.custom.vcs.ghq;
 in
 {
-  options.custom.ghq.enable = lib.mkEnableOption "ghq repository manager (github.com/<org>/<repo> layout)";
+  options.custom.vcs.ghq.enable =
+    lib.mkEnableOption "ghq repository manager (github.com/<org>/<repo> layout)";
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.ghq ];

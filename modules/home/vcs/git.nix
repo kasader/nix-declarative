@@ -1,9 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  cfg = config.custom.git;
+  cfg = config.custom.vcs.git;
 in
 {
-  options.custom.git.enable = lib.mkEnableOption "git and related tooling";
+  options.custom.vcs.git.enable = lib.mkEnableOption "git and related tooling";
 
   config = lib.mkIf cfg.enable {
     programs = {

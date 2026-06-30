@@ -13,15 +13,17 @@
     vim.enable = true;
     nvim.enable = true;
     ghostty.enable = true;
-    yazi.enable = true;
-    git.enable = true;
-    ghq.enable = true;
     fonts.enable = true;
     shell.enable = true;
-    syncthing.enable = true;
     security.enable = true;
     media.enable = true;
     fun.enable = true;
+    vcs = {
+      git.enable = true;
+      ghq.enable = true;
+    };
+    files.yazi.enable = true;
+    services.syncthing.enable = true;
     languages = {
       go.enable = true;
       rust.enable = true;

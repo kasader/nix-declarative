@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.custom.yazi;
+  cfg = config.custom.files.yazi;
 in
 {
-  options.custom.yazi.enable = lib.mkEnableOption "yazi file manager";
+  options.custom.files.yazi.enable = lib.mkEnableOption "yazi file manager";
 
   config = lib.mkIf cfg.enable {
     programs.yazi = {

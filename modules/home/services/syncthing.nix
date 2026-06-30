@@ -1,9 +1,9 @@
 { config, lib, ... }:
 let
-  cfg = config.custom.syncthing;
+  cfg = config.custom.services.syncthing;
 in
 {
-  options.custom.syncthing.enable = lib.mkEnableOption "Syncthing file synchronisation";
+  options.custom.services.syncthing.enable = lib.mkEnableOption "Syncthing file synchronisation";
 
   config = lib.mkIf cfg.enable {
     # Run Syncthing as a user service (launchd on macOS, systemd-user on Linux),

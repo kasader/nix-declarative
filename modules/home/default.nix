@@ -20,17 +20,12 @@
   # So "is this module available?" and "is this module on?" are answered in
   # different places — nothing is active merely by being imported.
   imports = [
-    ./tmux
-    ./fzf
     ./editors
     ./languages
     ./terminal
-    ./yazi
-    ./git
-    ./ghq
-    ./fonts
     ./shell
-    ./syncthing
+    ./fonts
+    ./vcs
     ./k8s
     ./containers
     ./browsers
@@ -38,5 +33,7 @@
     ./security
     ./media
     ./fun
+    ./files
+    ./services
   ];
 }
