@@ -8,7 +8,10 @@
   imports = [ ../../modules/darwin ];
 
   # Flakes + modern nix CLI.
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   environment.systemPackages = [ pkgs.vim ];
 

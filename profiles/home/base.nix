@@ -19,6 +19,9 @@
     fonts.enable = true;
     shell.enable = true;
     syncthing.enable = true;
+    security.enable = true;
+    media.enable = true;
+    fun.enable = true;
     languages = {
       go.enable = true;
       rust.enable = true;
@@ -27,38 +30,25 @@
   };
 
   home = {
+    # Universal misc CLI tools that don't warrant a topical module. Themed sets
+    # live in their own modules instead: security, media, fun (toys/typing), git,
+    # languages, etc. — see the custom.* toggles above. delta and direnv are NOT
+    # listed here: they ship via programs.delta (git module) and programs.direnv.
     packages = with pkgs; [
       hugo
-      cowsay
-      lolcat
-
       gnugrep
       ripgrep
-
-      # typing tests
-      ttyper
-      typioca
-      gtypist
-
       fastfetch # TODO: Add an alias for neofetch (as it is now deprecated)
       bat
       pay-respects
       lazygit
-      delta
       htop
-      fortune
-      figlet # funny text guy
-      sl # steam engine
       jq
       nixfmt
-      direnv
       tree
       wget
       tldr
       curl
-      keepassxc
-      yubikey-manager
-      ffmpeg
 
       # Migrated off Homebrew (`brew leaves`). Stable, cross-platform CLI tools
       # that nix packages cleanly. Build toolchains (cmake/meson/llvm/golangci-lint
@@ -76,13 +66,7 @@
       universal-ctags
       graphviz
       bashInteractive
-      mpv # CLI player; the `iina` cask is the GUI front-end over the same engine
       watch
-
-      # toys, matching the cowsay/lolcat/figlet/sl set above
-      asciiquarium
-      cmatrix
-      boxes
 
       # TODO: Add Soulseek server-client (at some point...)
       # https://github.com/slskd/slskd/
@@ -90,18 +74,6 @@
       # TODO: Good OCR for when you need to do JPNs something?
       # tesseract
     ];
-
-    file = {
-      "hello.txt" = {
-        text = ''
-          					#!/usr/bin/env bash
-
-          					echo "Hello, ${config.home.username}, @ ${config.home.homeDirectory}!"
-          					echo '*slaps roof* This script can fit so many lines in it'
-          				'';
-        executable = true;
-      };
-    };
 
     sessionVariables = {
       EDITOR = "nvim";

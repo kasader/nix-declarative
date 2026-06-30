@@ -21,7 +21,7 @@
   # different places — nothing is active merely by being imported.
   imports = [
     ./tmux
-    ./fzf.nix
+    ./fzf
     ./editors
     ./languages
     ./terminal
@@ -30,10 +30,13 @@
     ./ghq
     ./fonts
     ./shell
-    ./syncthing.nix
+    ./syncthing
     ./k8s
     ./containers
     ./browsers
     ./cloud
+    ./security
+    ./media
+    ./fun
   ];
 }

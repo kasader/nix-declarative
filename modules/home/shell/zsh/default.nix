@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  isDarwin,
   ...
 }:
 {
@@ -140,6 +141,6 @@
     # so zsh reads ~/.config/zsh directly and the ~/.zshenv bootstrap stub HM
     # writes for dotDir is dead weight — drop it. Linux hosts keep the stub until
     # their system layer sets ZDOTDIR too.
-    home.file.".zshenv".enable = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce false);
+    home.file.".zshenv".enable = lib.mkIf isDarwin (lib.mkForce false);
   };
 }
