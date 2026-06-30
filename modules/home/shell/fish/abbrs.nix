@@ -1,4 +1,4 @@
-# fish abbreviations — plain data, imported by ./default.nix. See
+# fish abbreviations; plain data, imported by ./default.nix. See
 # https://github.com/donovanglover/nix-config/blob/master/home/fish.nix for ideas.
 {
   # git family

@@ -1,4 +1,4 @@
-# fish aliases — plain data, imported by ./default.nix.
+# fish aliases; imported by ./default.nix.
 {
   c = "clear";
   vim = "nvim";
