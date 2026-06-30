@@ -5,7 +5,6 @@
   # on. Nothing in here is ever evaluated on macOS (no nixosConfigurations there).
   imports = [
     ./audio
-    ./fonts
     ./desktop
   ];
 }
