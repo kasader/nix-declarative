@@ -11,6 +11,7 @@
     tmux.enable = true;
     fzf.enable = true;
     vim.enable = true;
+    nvim.enable = true;
     ghostty.enable = true;
     yazi.enable = true;
     git.enable = true;

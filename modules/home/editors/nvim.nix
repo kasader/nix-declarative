@@ -1,5 +1,12 @@
-{ config, pkgs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.custom.nvim;
+in
 {
   # Neovim, the "Nix owns the tools, Lua owns the config" way.
   #
@@ -17,54 +24,57 @@
   # value makes home-manager generate its own init.lua, which would collide with
   # the symlinked config dir. Plugins and config are owned by Lua, not Nix.
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    withNodeJs = true;
+  options.custom.nvim.enable = lib.mkEnableOption "Neovim (lazy.nvim-managed, out-of-store Lua config)";
 
-    extraPackages = with pkgs; [
-      # ── tools plugins shell out to ──
-      ripgrep # telescope live-grep
-      fd # telescope file finder
-      tree-sitter # :TSUpdate grammar compilation
-      gcc # treesitter / native plugin compilation
-      gnumake # build step for fzf-native etc.
+  config = lib.mkIf cfg.enable {
+    programs.neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      withNodeJs = true;
 
-      # ── Go ──
-      gopls
-      delve
-      gotools # goimports
-      gofumpt
+      extraPackages = with pkgs; [
+        # ── tools plugins shell out to ──
+        ripgrep # telescope live-grep
+        fd # telescope file finder
+        tree-sitter # :TSUpdate grammar compilation
+        gcc # treesitter / native plugin compilation
+        gnumake # build step for fzf-native etc.
 
-      # ── Nix ──
-      nixd
-      alejandra
+        # ── Go ──
+        gopls
+        delve
+        gotools # goimports
+        gofumpt
 
-      # ── C / C++ ──
-      clang-tools # clangd + clang-format
+        # ── Nix ──
+        nixd
+        alejandra
 
-      # ── Web / config languages ──
-      yaml-language-server
-      vscode-langservers-extracted # jsonls, html, cssls, eslint
-      dockerfile-language-server
-      bash-language-server
-      marksman # markdown
-      taplo # toml
-      nodePackages.prettier
-      shfmt
+        # ── C / C++ ──
+        clang-tools # clangd + clang-format
 
-      # ── Lua (to hack on this very config) ──
-      lua-language-server
-      stylua
-    ];
+        # ── Web / config languages ──
+        yaml-language-server
+        vscode-langservers-extracted # jsonls, html, cssls, eslint
+        dockerfile-language-server
+        bash-language-server
+        marksman # markdown
+        taplo # toml
+        nodePackages.prettier
+        shfmt
+
+        # ── Lua (to hack on this very config) ──
+        lua-language-server
+        stylua
+      ];
+    };
+
+    # Live-editable config: symlink the repo's nvim/ dir into ~/.config/nvim rather
+    # than copying it to the read-only Nix store. lazy.nvim can then write its
+    # lazy-lock.json back into the repo. Repo location is the single source of
+    # truth custom.flakeDir (see modules/home/default.nix).
+    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.custom.flakeDir}/modules/home/editors/nvim";
   };
-
-  # Live-editable config: symlink the repo's nvim/ dir into ~/.config/nvim rather
-  # than copying it to the read-only Nix store. lazy.nvim can then write its
-  # lazy-lock.json back into the repo. Repo location is the single source of
-  # truth custom.flakeDir (see modules/home/default.nix).
-  xdg.configFile.nvim.source =
-    config.lib.file.mkOutOfStoreSymlink "${config.custom.flakeDir}/modules/home/editors/nvim";
 }

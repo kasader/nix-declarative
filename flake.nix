@@ -42,41 +42,15 @@
     }:
     let
       lib = nixpkgs.lib;
-
-      pkgsLinux = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-        overlays = [ nur.overlays.default ];
-      };
-
     in
     {
-      homeConfigurations = {
-        "kasada@ramiel" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgsLinux;
-          # Platform flag passed via specialArgs so modules can branch `imports`
-          # without reading `pkgs` (which would be an infinite recursion).
-          extraSpecialArgs = { inherit (pkgsLinux.stdenv) isDarwin; };
-          modules = [
-            ./hosts/ramiel/home.nix
-            nvf.homeManagerModules.default
-          ]; # nvf.nix config now lives in modules/home/editors
-        };
-        # israfel (macOS) is no longer a standalone home config — its home is
-        # integrated into darwinConfigurations.israfel below, built by
-        # `darwin-rebuild switch`. Standalone HM here owned ~/.nix-profile, which
-        # is exactly what broke the login shell during the switchover.
-      };
-
       # ── NixOS hosts ──────────────────────────────────────────────────
       # ramiel integrates home-manager into the system, so a single
       # `nixos-rebuild switch --flake .#ramiel` builds system + home. The
       # portable home core (profiles/home/*) is reused verbatim via
-      # ./hosts/ramiel/home.nix.
-      #
-      # NOTE: ramiel's standalone homeConfiguration above still works during
-      # the migration. Once nixos-rebuild is good, delete it so home is not
-      # managed from two places.
+      # ./hosts/ramiel/home.nix. Home is managed only here — there is no
+      # standalone homeConfiguration, so ~/.nix-profile is never owned by a
+      # second activation path (which is what broke the login shell before).
       nixosConfigurations.ramiel = lib.nixosSystem {
         modules = [
           ./hosts/ramiel/configuration.nix
